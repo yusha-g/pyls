@@ -3,11 +3,20 @@
 import argparse
 import json
 from pathlib import Path
+from typing import Optional
 
 from item import Item
 from pyls_arguments import add_args
 
-def get_current_file_content(item, file_path):
+def get_current_file_content(item: Item, file_path: Optional[str] = None) -> Item|None:
+    """
+    Args:
+        item (Item): Structure containing file.
+        file_path (str): Name of file to be accessed.
+    Return:
+        Contents of item specified in file path. 
+        If no item matches, None is returned. 
+    """
     if item.name == file_path or file_path is None:
         return item
     for sub_item in item.contents:
@@ -30,6 +39,7 @@ if __name__ == "__main__":
     current_item = get_current_file_content(
         item, 
         args.file_path.split("/")[-1] if args.file_path is not None else None
+        # extract file name if file_path is specified
     )
     if current_item:
         item_list = current_item.list_items(args.all, filter=args.filter)
@@ -40,7 +50,7 @@ if __name__ == "__main__":
     """Note: 
     Order of checking the args is important here.
     Example:
-        In case reverse is checked before time, 
+        In case 'reverse' is checked before 'time', 
         sorting by 'time_modified' will nullify the reveseral of items.
     """
 

@@ -50,7 +50,7 @@ class Item:
                 if filtered_item.contents
             ]
             return filtered_list
-            
+
         filtered_list = [
             filtered_item
             for filtered_item in item_list
@@ -67,13 +67,13 @@ class Item:
         """Reverses listing of items"""
         return item_list[::-1]
 
-    def display(self, item_list):
+    def display(self, item_list: list) -> None:
         """Display function for single line listing"""
         for item in item_list:
             print(item.name, end=" ")
         print()
     
-    def long_list_items(self, item_list) -> None:
+    def long_list_items(self, item_list: list) -> None:
         """Display function for long listing"""
         for item in item_list:
             print(

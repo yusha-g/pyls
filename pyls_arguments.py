@@ -1,7 +1,8 @@
 def add_args(parser):
+
     parser.add_argument(
         "--all", "-A", 
-        help="List all directories", 
+        help="List all directories and files.", 
         action="store_true"
     )
     parser.add_argument(
