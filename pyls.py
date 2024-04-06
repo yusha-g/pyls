@@ -4,7 +4,6 @@ import argparse
 from datetime import datetime
 import json
 from pathlib import Path
-import sys
 from typing import Optional
 
 def add_args(parser):
@@ -28,6 +27,33 @@ def add_args(parser):
         help="Sort by time-modified",
         action="store_true"
     )
+
+    parser.add_argument(
+        "--filter",
+        help="Filter by type of item. Either file or dir",
+        choices=['dir','file'],
+        action="store"
+    )
+
+    # if no file path is produced, use None
+    parser.add_argument(
+        "file_path",
+        help="The path to the directory or file to list",
+        type=str,
+        nargs="?",
+        default=None
+    )
+
+def get_current_file_content(item, file_path):
+    if item.name == file_path or file_path is None:
+        return item
+    for sub_item in item.contents:
+        current_item = get_current_file_content(sub_item, file_path)
+        if current_item is not None:
+            return current_item
+    return None
+    
+
 class Item:
     """
     Each Item corresponds to directory/file in the structure.
@@ -51,7 +77,7 @@ class Item:
             for sub_items in contents:
                 self.contents.append(Item(**sub_items))
     
-    def list_items(self, list_all: bool) -> list:
+    def list_items(self, list_all: bool, filter=None) -> list:
         """
         Args:
             list_all (bool): True if -A is set
@@ -102,7 +128,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    item_list = item.list_items(args.all)
+    current_item = get_current_file_content(item, args.file_path)
+    item_list = current_item.list_items(args.all, filter=args.filter)
 
 
     """Note: 
