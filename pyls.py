@@ -75,16 +75,13 @@ class Item:
     
     def reverse_items(self, item_list: list) -> list:
         return item_list[::-1]
-    
-    def long_list_items(self, item_list) -> None:
-        self.long_display(item_list)
 
     def display(self, item_list):
         for item in item_list:
             print(item.name, end=" ")
         print()
     
-    def long_display(self, item_list):
+    def long_list_items(self, item_list) -> None:
         for item in item_list:
             print(
                 item.permissions,
