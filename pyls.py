@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse
+from datetime import datetime
 import json
 from pathlib import Path
 import sys
 from typing import Optional
+
 
 
 class Item:
@@ -23,7 +25,7 @@ class Item:
 
         self.name = name
         self.size = size
-        self.time_modified = time_modified
+        self.time_modified = datetime.fromtimestamp(time_modified).strftime("%b %d %H %M")
         self.permissions = permissions
         self.contents = []
         if contents:
@@ -47,6 +49,15 @@ class Item:
         for sub_itmes in self.contents:
             print(sub_itmes.name, end=" ")
         print()
+    
+    def long_list_items(self) -> None:
+        for sub_items in self.contents:
+            print(
+                sub_items.permissions,
+                sub_items.size,
+                sub_items.time_modified,
+                sub_items.name
+            )
 
 if __name__ == "__main__":
     structure_path = Path(__file__).parent / "structure.json"
@@ -55,6 +66,7 @@ if __name__ == "__main__":
     item = Item(**file_structure)
 
     parser = argparse.ArgumentParser()
+    
     parser.add_argument(
         "--all", "-A", 
         help="List all directories", 
@@ -65,6 +77,11 @@ if __name__ == "__main__":
         help="List additional information",
         action="store_true"
     )
+    parser.add_argument(
+        "--reverse", "-r",
+        help="Reverse listing",
+        action="store_true"
+    )
     args = parser.parse_args()
 
     if len(sys.argv) == 1:
@@ -72,5 +89,7 @@ if __name__ == "__main__":
         item.list_items()
     if args.all:
         item.list_all_items()
+    if args.long:
+        item.long_list_items()
     
 
