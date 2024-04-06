@@ -7,8 +7,27 @@ from pathlib import Path
 import sys
 from typing import Optional
 
-
-
+def add_args(parser):
+    parser.add_argument(
+        "--all", "-A", 
+        help="List all directories", 
+        action="store_true"
+    )
+    parser.add_argument(
+        "--long", "-l",
+        help="List additional information",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--reverse", "-r",
+        help="Reverse listing",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--time","-t",
+        help="Sort by time-modified",
+        action="store_true"
+    )
 class Item:
     """
     Each Item corresponds to directory/file in the structure.
@@ -25,38 +44,53 @@ class Item:
 
         self.name = name
         self.size = size
-        self.time_modified = datetime.fromtimestamp(time_modified).strftime("%b %d %H %M")
+        self.time_modified = datetime.fromtimestamp(time_modified).strftime("%b %d %H:%M")
         self.permissions = permissions
         self.contents = []
         if contents:
             for sub_items in contents:
                 self.contents.append(Item(**sub_items))
     
-    def list_items(self) -> None:
+    def list_items(self, list_all: bool) -> list:
         """
-        Lists all items in the immediate subdirectory (excluding the once starting with ".").
+        Args:
+            list_all (bool): True if -A is set
+        Returns: 
+            List of all items in the immediate subdirectory.
+            If list_all is True, will include files starting with ".".
         """
+        item_list = []
+        if list_all:
+            for sub_items in self.contents:
+                item_list.append(sub_items)
+            return item_list
+
         for sub_items in self.contents:
             if sub_items.name[0] != ".":
-                print(sub_items.name, end=" ")
-        print()
+                item_list.append(sub_items)
+        return item_list
+    
+    def sort_by_time(self, item_list: list) -> list:
+        return sorted(item_list, key=lambda item_time: item.time_modified)
+    
+    def reverse_items(self, item_list: list) -> list:
+        return item_list[::-1]
+    
+    def long_list_items(self, item_list) -> None:
+        self.long_display(item_list)
 
-    def list_all_items(self) -> None:
-        """
-        Corresponds to "-A".
-        List all items in the immediate subdirectory (including the once starting with ".").
-        """
-        for sub_itmes in self.contents:
-            print(sub_itmes.name, end=" ")
+    def display(self, item_list):
+        for item in item_list:
+            print(item.name, end=" ")
         print()
     
-    def long_list_items(self) -> None:
-        for sub_items in self.contents:
+    def long_display(self, item_list):
+        for item in item_list:
             print(
-                sub_items.permissions,
-                sub_items.size,
-                sub_items.time_modified,
-                sub_items.name
+                item.permissions,
+                item.size,
+                item.time_modified,
+                item.name
             )
 
 if __name__ == "__main__":
@@ -67,29 +101,27 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument(
-        "--all", "-A", 
-        help="List all directories", 
-        action="store_true"
-    )
-    parser.add_argument(
-        "--long", "-l",
-        help="List additional information",
-        action="store_true"
-    )
-    parser.add_argument(
-        "--reverse", "-r",
-        help="Reverse listing",
-        action="store_true"
-    )
+    add_args(parser)
+
     args = parser.parse_args()
 
-    if len(sys.argv) == 1:
-        """default behavior if no arguments are passed"""
-        item.list_items()
-    if args.all:
-        item.list_all_items()
+    item_list = item.list_items(args.all)
+
+
+    """Note: 
+    Order of checking the args is important here.
+    Example:
+        In case reverse is checked before time, 
+        sorting by 'time_modified' will nullify the reveseral of items.
+    """
+
+    if args.time:
+        item_list=item.sort_by_time(item_list)
+    if args.reverse:
+        item_list=item.reverse_items(item_list)
     if args.long:
-        item.long_list_items()
+        item.long_list_items(item_list)
+    else:
+        item.display(item_list)
     
 
