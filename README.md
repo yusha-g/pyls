@@ -26,7 +26,7 @@ All flags are stackable.
 
 # Code Structure
 
-```bash
+```
 
 # basic structure of code
 pyls
