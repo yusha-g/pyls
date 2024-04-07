@@ -70,7 +70,7 @@ Currently only contains exception for InvalidPath which is raised if the path pa
 - Run the following command
 
 ```bash
-./.bashrc
+./pyls.py
 ```
 
 - pyls is now executable as follows:
