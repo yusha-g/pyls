@@ -22,9 +22,8 @@ github = "https://github.com/yusha-g/pyls"
 
 [project.scripts]
 pyls = "pyls.pyls:main"
+custom_exceptions = "pyls.custom_exceptions:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-"pyls" = ["*.py"]
+[tool.setuptools]
+packages = ["pyls"]
+package-dir = {"" = "src"}
