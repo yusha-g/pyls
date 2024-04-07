@@ -13,6 +13,7 @@ Mimics the behaviour of `ls` command
 
 The following arguments are implemented and categorised under argument group “pyls flags”:
 
+| Arg | Description |
 | --- | --- |
 | -A | List all files, including the once starting with “.” |
 | -l | Long list files with details such as `size` and `time_modified` |
