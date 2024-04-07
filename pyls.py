@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
+from custom_exceptions import InvalidPath
 from item import Item
 from pyls_arguments import add_args
 
@@ -36,15 +37,18 @@ if __name__ == "__main__":
     add_args(pyls_parser)
 
     args = parser.parse_args()
+
+    # extract file name if file_path is specified, else just assign it None
+    file_name = args.file_path.split("/")[-1] if args.file_path is not None else None
     current_item = get_current_file_content(
         item, 
-        args.file_path.split("/")[-1] if args.file_path is not None else None
-        # extract file name if file_path is specified
+        file_name
     )
     if current_item:
         item_list = current_item.list_items(args.all, filter=args.filter)
     else:
-        raise NameError
+        assert file_name is not None
+        raise InvalidPath(file_name)
 
 
     """Note: 
