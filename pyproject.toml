@@ -1,0 +1,12 @@
+[project]
+author = [{
+    {name = "Pratyusha Ghosh", email = "pratyusha.gh@gmail.com"}
+}]
+name = "pyls"
+description = "Mimics the behavior of ls command"
+version = "0.1"
+requires-python = ">=3.11"
+readme = "README.md"
+
+[project.urls]
+github = "https://github.com/yusha-g/pyls"
