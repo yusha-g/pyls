@@ -66,14 +66,14 @@ Currently only contains exception for InvalidPath which is raised if the path pa
 
 # Setup
 
-- In terminal navigate inside `pyls/src/pyls`
-- Run the following commands
+- In terminal, navigate to `pyls/src/pyls`
+- Run the following command
 
 ```bash
 ./.bashrc
 ```
 
-- You can now execute pyls as follows:
+- pyls is now executable as follows:
 
 ```bash
 python -m pyls
@@ -81,5 +81,5 @@ python -m pyls
 
 Note:
 
-- The above command will only work as long as you are inside the pyls folder.
-- This is a temporary workaround till I can figure out pyproject.toml.
+- The above command will only work inside the pyls folder.
+- This is a temporary workaround till I can figure out the error caused by `pyproject.toml`'s pip install.
