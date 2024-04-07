@@ -26,7 +26,7 @@ class Item:
                 self.contents.append(Item(**sub_items))
     
     def __repr__(self) -> str:
-        # 'cause I actually want to understand what I'm looking at
+        # 'cause I actually want to understand what I'm looking
         return f"{self.name}"
     
     def list_items(self, list_all: bool, filter: Optional[str] = None) -> list:

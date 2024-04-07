@@ -27,7 +27,7 @@ def get_current_file_content(item: Item, file_path: Optional[str] = None) -> Ite
     return None
     
 if __name__ == "__main__":
-    structure_path = Path(__file__).parent / "structure.json"
+    structure_path = Path(__file__).parent / "json" / "structure.json"
     with open(structure_path) as fh:
         file_structure = json.load(fh)
     item = Item(**file_structure)
