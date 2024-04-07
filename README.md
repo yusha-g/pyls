@@ -6,7 +6,6 @@
 
 [Setup](https://github.com/yusha-g/pyls?tab=readme-ov-file#setup)
 
-<div>
 
 # Features
 
@@ -14,6 +13,7 @@ Mimics the behaviour of `ls` command
 
 The following arguments are implemented and categorised under argument group “pyls flags”:
 
+| --- | --- |
 | -A | List all files, including the once starting with “.” |
 | -l | Long list files with details such as `size` and `time_modified` |
 | -r | Reverse listing of files |
