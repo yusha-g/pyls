@@ -1,19 +1,30 @@
-# [build-system]
-# requires = ["setuptools"]
-# build-backend = "setuptools.build_meta"
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyls"
 description = "Mimics the behavior of ls command"
 version = "0.1"
 requires-python = ">=3.11.6"
-# readme = "README.md"
-# authors = [
-#   {name = "Pratyusha Ghosh", email = "pratyusha.gh@gmail.com"},
-# ]
+readme = "README.md"
+authors = [
+  {name = "Pratyusha Ghosh", email = "pratyusha.gh@gmail.com"},
+]
 
-# [project.urls]
-# github = "https://github.com/yusha-g/pyls"
+[project.optional-dependencies]
+dev =[
+  "black",
+]
 
-# [project.scripts]
-# pyls = "pyls.pyls:main"
+[project.urls]
+github = "https://github.com/yusha-g/pyls"
+
+[project.scripts]
+pyls = "pyls.pyls:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"pyls" = ["*.py"]
