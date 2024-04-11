@@ -42,8 +42,15 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    # TODO: this is ugly. make it prettier.
     # extract file name if file_path is specified, else just assign it None
-    file_name = args.file_path.split("/")[-1] if args.file_path is not None else None
+    file_name = None
+    if args.file_path:
+        file_name = args.file_path.split("/")[-1]
+        if file_name == ".":
+            file_name = None
+    
+
     current_item = get_current_file_content(item, file_name)
     if current_item:
         item_list = current_item.list_items(args.all, filter=args.filter)
