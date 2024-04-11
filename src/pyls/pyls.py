@@ -68,7 +68,8 @@ if __name__ == "__main__":
         file_structure = json.load(fh)
     item = Item(**file_structure)
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--help",action="help")
     pyls_parser = parser.add_argument_group("pyls flags")
     add_args(pyls_parser)
 
@@ -90,7 +91,8 @@ if __name__ == "__main__":
         In case 'reverse' is checked before 'time', 
         sorting by 'time_modified' will nullify the reveseral of items.
     """
-
+    if args.h:
+        item.make_human_readable(item_list)
     if args.time:
         item_list = item.sort_by_time(item_list)
     if args.reverse:

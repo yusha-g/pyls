@@ -1,7 +1,12 @@
 from datetime import datetime
+import math
 from typing import Optional
 
-
+def convert_size(byte_size):
+    if byte_size < 1024: # remain in bytes
+        return byte_size
+    return str(round(byte_size/1024, 1))+"K"
+    
 class Item:
     """
     Each Item corresponds to directory/file in the structure.
@@ -43,7 +48,7 @@ class Item:
         """
         if not self.contents:
             return [self]
-            
+
         item_list = [
             sub_item
             for sub_item in self.contents
@@ -60,6 +65,10 @@ class Item:
             filtered_item for filtered_item in item_list if not filtered_item.contents
         ]
         return filtered_list
+
+    def make_human_readable(self, item_list: list):
+        for sub_item in item_list:
+            sub_item.size = convert_size(sub_item.size)
 
     def sort_by_time(self, item_list: list) -> list:
         """Sorts item list by time_modified"""
