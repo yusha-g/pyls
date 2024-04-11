@@ -34,12 +34,17 @@ def get_current_file_content(
     item: Item, file_path: Optional[list] = None
 ):
     if file_path is None:
+        # no file path provided
         return item
-    if file_path[0] == "." and len(file_path) == 1:
-        return item
-    if file_path[0] == "." and len(file_path)>1:
+
+    if file_path[0] == ".":
+        if len(file_path) == 1:
+            # refers to current directory
+            return item
+        # relative path
         file_path[0] = "interpreter"
 
+    # search for item recursively inside the subdirs
     if file_path[0] == item.name:
         if len(file_path) == 1:
             return item
@@ -48,6 +53,8 @@ def get_current_file_content(
                 current_item = get_current_file_content(sub_item, file_path[1:])
                 if current_item is not None:
                     return current_item
+
+    # iterate over outermost items
     for sub_item in item.contents:
             current_item = get_current_file_content(sub_item, file_path)
             if current_item is not None:
@@ -67,13 +74,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # TODO: this is ugly. make it prettier.
     # extract file name if file_path is specified, else just assign it None
-    file_name = None
-    if args.file_path:
-        file_name = args.file_path.split("/")
+    file_name = args.file_path.split("/") if args.file_path else None
     
-    # breakpoint()
     current_item = get_current_file_content(item, file_name)
     if current_item:
         item_list = current_item.list_items(args.all, filter=args.filter)

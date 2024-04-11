@@ -41,6 +41,9 @@ class Item:
             List of all items in the immediate subdirectory.
             If list_all is True, will include files starting with ".".
         """
+        if not self.contents:
+            return [self]
+            
         item_list = [
             sub_item
             for sub_item in self.contents
