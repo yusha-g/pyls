@@ -41,7 +41,7 @@ def get_current_file_content(
         if len(file_path) == 1:
             # refers to current directory
             return item
-        # relative path
+        # relative path - "." means outermost
         file_path[0] = "interpreter"
 
     # search for item recursively inside the subdirs
@@ -76,7 +76,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # extract file name if file_path is specified, else just assign it None
-    file_name = args.file_path.split("/") if args.file_path else None
+    # strip trailing slashes if present
+    file_name = args.file_path.rstrip("/").split("/") if args.file_path else None
     
     current_item = get_current_file_content(item, file_name)
     if current_item:
