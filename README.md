@@ -19,7 +19,8 @@ The following arguments are implemented and categorised under argument group “
 | -l | Long list files with details such as `size` and `time_modified` |
 | -r | Reverse listing of files |
 | -t | Sort files by `time_modified` |
-| —filter=<dir/file> | Filter based on content. If item contains contents, it is classified as a directory (dir), else it is a file. |
+| -h | Makes file sizes human readable |
+| --filter=<dir/file> | Filter based on content. If item contains contents, it is classified as a directory (dir), else it is a file. |
 | path | Path to list out. |
 
 All flags are stackable. 
