@@ -2,10 +2,14 @@ from datetime import datetime
 import math
 from typing import Optional
 
-def convert_size(byte_size):
-    if byte_size < 1024: # remain in bytes
-        return byte_size
-    return str(round(byte_size/1024, 1))+"K"
+def convert_size_human_readable(byte_size):
+    units = ["B", "K", "M", "G"]
+    factor = 1024
+    i = 0   # provide the unit index
+    while byte_size >= factor:
+        byte_size = byte_size / factor
+        i += 1
+    return f"{round(byte_size, 2)}{units[i]}"
     
 class Item:
     """
@@ -68,7 +72,7 @@ class Item:
 
     def make_human_readable(self, item_list: list):
         for sub_item in item_list:
-            sub_item.size = convert_size(sub_item.size)
+            sub_item.size = convert_size_human_readable(sub_item.size)
 
     def sort_by_time(self, item_list: list) -> list:
         """Sorts item list by time_modified"""
