@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel >= 0.38"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyls"
 description = "Mimics the behavior of ls command"
-version = "0.1"
+version = "1.0.0"
 requires-python = ">=3.11.6"
 readme = "README.md"
 authors = [
@@ -22,8 +22,3 @@ github = "https://github.com/yusha-g/pyls"
 
 [project.scripts]
 pyls = "pyls.pyls:main"
-custom_exceptions = "pyls.custom_exceptions:main"
-
-[tool.setuptools]
-packages = ["pyls"]
-package-dir = {"" = "src"}

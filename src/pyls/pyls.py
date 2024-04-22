@@ -5,9 +5,9 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from custom_exceptions import InvalidPath
-from item import Item
-from pyls_arguments import add_args
+from . import InvalidPath
+from . import Item
+from . import add_args
 
 
 def get_current_file_content_old(
@@ -62,7 +62,7 @@ def get_current_file_content(
     return None
     
 
-if __name__ == "__main__":
+def main():
     structure_path = Path(__file__).parent / "json" / "structure.json"
     with open(structure_path) as fh:
         file_structure = json.load(fh)
