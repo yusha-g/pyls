@@ -66,9 +66,10 @@ class Item:
             ]
             return filtered_list
 
-        filtered_list = [
-            filtered_item for filtered_item in item_list if not filtered_item.contents
-        ]
+        elif filter == "file":
+            filtered_list = [
+                filtered_item for filtered_item in item_list if not filtered_item.contents
+            ]
         return filtered_list
 
     def make_human_readable(self, item_list: list):
