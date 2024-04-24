@@ -5,11 +5,11 @@ from typing import Optional
 def convert_size_human_readable(byte_size):
     units = ["B", "K", "M", "G"]
     factor = 1024
-    # i = 0   # provide the unit index
-    # while byte_size >= factor:
-    #     byte_size = byte_size / factor
-    #     i += 1
-    # return f"{round(byte_size, 2)}{units[i]}"
+    i = 0   # provide the unit index
+    while byte_size >= factor:
+        byte_size = byte_size / factor
+        i += 1
+    return f"{round(byte_size, 2)}{units[i]}"
     
     
 class Item:
