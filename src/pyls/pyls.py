@@ -99,6 +99,7 @@ def main():
     if args.reverse:
         item_list = item.reverse_items(item_list)
     if args.long:
-        item.long_list_items(item_list)
+        dsp_str = item.long_list_items(item_list)
     else:
-        item.display(item_list)
+        dsp_str = item.display(item_list)
+    print(dsp_str)

@@ -84,13 +84,14 @@ class Item:
         """Reverses listing of items"""
         return item_list[::-1]
 
-    def display(self, item_list: list) -> None:
+    def display(self, item_list: list) -> str:
         """Display function for single line listing"""
-        for item in item_list:
-            print(item.name, end=" ")
-        print()
+        display_str = " ".join([item.name for item in item_list])
+        return display_str
 
-    def long_list_items(self, item_list: list) -> None:
+    def long_list_items(self, item_list: list) -> str:
         """Display function for long listing"""
-        for item in item_list:
-            print(item.permissions, item.size, item.time_modified, item.name)
+        display_str = f"\n".join([
+            " ".join([item.permissions, str(item.size), item.time_modified, item.name]) for item in item_list
+        ])
+        return display_str
