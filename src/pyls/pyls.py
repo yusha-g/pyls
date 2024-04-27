@@ -5,29 +5,11 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from . import InvalidPath
-from . import Item
-from . import add_args
-
-
-def get_current_file_content_old(
-    item: Item, file_path: Optional[str] = None
-) -> Item | None:
-    """
-    Args:
-        item (Item): Structure containing file.
-        file_path (str): Name of file to be accessed.
-    Return:
-        Contents of item specified in file path.
-        If no item matches, None is returned.
-    """
-    if item.name == file_path or file_path is None:
-        return item
-    for sub_item in item.contents:
-        current_item = get_current_file_content_old(sub_item, file_path)
-        if current_item is not None:
-            return current_item
-    return None
+from . import (
+    InvalidPath, 
+    Item, 
+    add_args
+)
 
 # TODO: simplify the below code
 def get_current_file_content(
