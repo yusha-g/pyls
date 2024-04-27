@@ -2,16 +2,17 @@ from datetime import datetime
 import math
 from typing import Optional
 
+
 def convert_size_human_readable(byte_size):
     units = ["B", "K", "M", "G"]
     factor = 1024
-    i = 0   # provide the unit index
+    i = 0  # provide the unit index
     while byte_size >= factor:
         byte_size = byte_size / factor
         i += 1
     return f"{round(byte_size, 2)}{units[i]}"
-    
-    
+
+
 class Item:
     """
     Each Item corresponds to directory/file in the structure.
@@ -68,7 +69,9 @@ class Item:
 
         elif filter == "file":
             filtered_list = [
-                filtered_item for filtered_item in item_list if not filtered_item.contents
+                filtered_item
+                for filtered_item in item_list
+                if not filtered_item.contents
             ]
         return filtered_list
 
@@ -91,7 +94,12 @@ class Item:
 
     def long_list_items(self, item_list: list) -> str:
         """Display function for long listing"""
-        display_str = f"\n".join([
-            " ".join([item.permissions, str(item.size), item.time_modified, item.name]) for item in item_list
-        ])
+        display_str = f"\n".join(
+            [
+                " ".join(
+                    [item.permissions, str(item.size), item.time_modified, item.name]
+                )
+                for item in item_list
+            ]
+        )
         return display_str

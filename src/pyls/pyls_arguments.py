@@ -27,7 +27,4 @@ def add_args(parser):
         default=None,
     )
 
-    parser.add_argument(
-        "-h",
-        action="store_true"
-    )
+    parser.add_argument("-h", action="store_true")

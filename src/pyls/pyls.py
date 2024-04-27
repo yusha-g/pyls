@@ -5,16 +5,11 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from . import (
-    InvalidPath, 
-    Item, 
-    add_args
-)
+from . import InvalidPath, Item, add_args
+
 
 # TODO: simplify the below code
-def get_current_file_content(
-    item: Item, file_path: Optional[list] = None
-):
+def get_current_file_content(item: Item, file_path: Optional[list] = None):
     if file_path is None:
         # no file path provided
         return item
@@ -38,11 +33,11 @@ def get_current_file_content(
 
     # iterate over outermost items
     for sub_item in item.contents:
-            current_item = get_current_file_content(sub_item, file_path)
-            if current_item is not None:
-                    return current_item
+        current_item = get_current_file_content(sub_item, file_path)
+        if current_item is not None:
+            return current_item
     return None
-    
+
 
 def main():
     structure_path = Path(__file__).parent / "json" / "structure.json"
@@ -51,7 +46,7 @@ def main():
     item = Item(**file_structure)
 
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("--help",action="help")
+    parser.add_argument("--help", action="help")
     pyls_parser = parser.add_argument_group("pyls flags")
     add_args(pyls_parser)
 
@@ -60,7 +55,7 @@ def main():
     # extract file name if file_path is specified, else just assign it None
     # strip trailing slashes if present
     file_name = args.file_path.rstrip("/").split("/") if args.file_path else None
-    
+
     current_item = get_current_file_content(item, file_name)
     if current_item:
         item_list = current_item.list_items(args.all, filter=args.filter)
