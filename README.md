@@ -66,21 +66,12 @@ Depending on the presence of `contents` inside of an item — it can be classifi
 Currently only contains exception for InvalidPath which is raised if the path passed in args is not found. 
 
 # Setup
-
-- In terminal, navigate to `pyls/src/pyls`
-- Run the following command
-
-```bash
-./pyls.py
+### pip install
+- In terminal, navigate to the `pyls` directory.
+- Run the following command:
+```python
+python -m pip install .
 ```
+- `pyls` command should be working
 
-- pyls is now executable as follows:
-
-```bash
-python -m pyls
-```
-
-Note:
-
-- The above command will only work inside the pyls folder.
-- This is a temporary workaround till I can figure out the error caused by `pyproject.toml`'s pip install.
+Note: Running `python -m pyls` works as well.
