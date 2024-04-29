@@ -10,6 +10,7 @@ from . import InvalidPath, Item, add_args
 
 # TODO: simplify the below code
 def get_current_file_content(item: Item, file_path: Optional[list] = None):
+
     if file_path is None:
         # no file path provided
         return item
@@ -22,20 +23,16 @@ def get_current_file_content(item: Item, file_path: Optional[list] = None):
         file_path[0] = "interpreter"
 
     # search for item recursively inside the subdirs
-    if file_path[0] == item.name:
-        if len(file_path) == 1:
-            return item
-        else:
-            for sub_item in item.contents:
-                current_item = get_current_file_content(sub_item, file_path[1:])
-                if current_item is not None:
-                    return current_item
-
-    # iterate over outermost items
     for sub_item in item.contents:
-        current_item = get_current_file_content(sub_item, file_path)
-        if current_item is not None:
-            return current_item
+        if sub_item.name == file_path[0]:
+            # current sub_item is the left-most directory in the path
+            if len(file_path) == 1:
+                # file_path only contains name of dir / file
+                return sub_item
+            current_item = get_current_file_content(sub_item, file_path[1:])
+            if current_item:
+                # gotcha
+                return current_item
     return None
 
 
@@ -79,4 +76,4 @@ def main():
         dsp_str = item.long_list_items(item_list)
     else:
         dsp_str = item.display(item_list)
-    print(dsp_str)
+    return dsp_str
