@@ -20,8 +20,7 @@ def get_current_file_content(item: Item, file_path: Optional[list] = None):
             # refers to current directory
             return item
         # relative path - "." means outermost
-        file_path[0] = "interpreter"
-
+        file_path = file_path[1:]
     # search for item recursively inside the subdirs
     for sub_item in item.contents:
         if sub_item.name == file_path[0]:
