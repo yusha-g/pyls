@@ -76,4 +76,4 @@ def main():
         dsp_str = item.long_list_items(item_list)
     else:
         dsp_str = item.display(item_list)
-    return dsp_str
+    print(dsp_str)
